@@ -10,7 +10,10 @@
     <file url="file://$PROJECT_DIR$/services/cloud/transition-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/cloud/user-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/common-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/edge/server1/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/edge/server2/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/edge/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/services/edge/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/services/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

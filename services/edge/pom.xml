@@ -10,6 +10,11 @@
     </parent>
 
     <artifactId>edge</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>server1</module>
+        <module>server2</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

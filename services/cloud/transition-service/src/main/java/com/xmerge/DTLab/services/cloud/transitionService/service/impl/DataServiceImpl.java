@@ -7,15 +7,17 @@ import com.xmerge.framworks.convention.exception.errorcode.ServerErrorCode;
 import com.xmerge.framworks.convention.result.Result;
 import commonAPI.TestService;
 
+import org.apache.dubbo.rpc.Invoker;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import com.xmerge.DTLab.services.cloud.transitionService.utils.DubboServiceUtil;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static com.xmerge.DTLab.services.cloud.transitionService.utils.DubboServiceUtil.INVOKER_MAP;
+import static com.xmerge.DTLab.services.cloud.transitionService.utils.DubboServiceUtil.INVOKER_SERVER_MAP;
 
 /**
  * @author Xmerge
@@ -38,18 +40,26 @@ public class DataServiceImpl implements DataService {
 
     @Override
     public Result<String> getData(String serverId) {
-        if (DubboServiceUtil.isServiceAvailable(serverId)) {
+        if (DubboServiceUtil.isServerAvailable(serverId)) {
             return GlobalResult.success(testService.getInfo(serverId));
+        }
+        if (DubboServiceUtil.isServerOffline(serverId)) {
+            throw new ServerException(ServerErrorCode.SERVER_OFFLINE);
         }
         throw new ServerException(ServerErrorCode.SERVER_NOT_FOUND);
     }
 
     @Override
-    public String getDataAll() {
-        List<String> res = new ArrayList<>();
-        for (String key : INVOKER_MAP.keySet()) {
-            continue;
+    public Result<Map<String, String>> getDataAll() {
+        Map<String, String> res = new HashMap<>();
+        for (String key : INVOKER_SERVER_MAP.keySet()) {
+            if (DubboServiceUtil.isServerOffline(key)) {
+                continue;
+            }
+            Invoker<?> invoker = INVOKER_SERVER_MAP.get(key).getInvoker();
+            String serverId = invoker.getUrl().getParameter("serverId");
+            res.put(serverId, getData(serverId).getData());
         }
-        return null;
+        return GlobalResult.success(res);
     }
 }

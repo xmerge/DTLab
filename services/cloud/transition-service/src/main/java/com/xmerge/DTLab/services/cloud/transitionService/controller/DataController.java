@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @author Xmerge
@@ -22,6 +23,11 @@ public class DataController {
     @GetMapping("/getData")
     public Result<String> getData(@RequestParam("serverId") String serverId) {
         return dataService.getData(serverId);
+    }
+
+    @GetMapping("/getDataAll")
+    public Result<Map<String, String>> getDataAll() {
+        return dataService.getDataAll();
     }
 
     @GetMapping("/hello")

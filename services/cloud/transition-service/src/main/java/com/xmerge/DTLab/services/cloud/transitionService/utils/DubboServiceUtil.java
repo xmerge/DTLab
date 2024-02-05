@@ -1,6 +1,10 @@
 package com.xmerge.DTLab.services.cloud.transitionService.utils;
 
-import org.apache.dubbo.rpc.Invoker;
+
+
+import com.xmerge.DTLab.services.cloud.transitionService.common.enums.InvokerStatusEnum;
+import com.xmerge.DTLab.services.cloud.transitionService.dto.InvokerServerWrapper;
+import org.apache.dubbo.rpc.protocol.InvokerWrapper;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,9 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DubboServiceUtil {
 
-    public static final ConcurrentHashMap<String, Invoker<?>> INVOKER_MAP = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<String, InvokerServerWrapper> INVOKER_SERVER_MAP = new ConcurrentHashMap<>();
 
-    public static Boolean isServiceAvailable(String uniqueId) {
-        return INVOKER_MAP.containsKey(uniqueId);
+    public static Boolean isServerAvailable(String serverId) {
+        return INVOKER_SERVER_MAP.containsKey(serverId) &&
+                INVOKER_SERVER_MAP.get(serverId).getStatus().equals(InvokerStatusEnum.AVAILABLE);
+    }
+
+    public static Boolean isServerOffline(String serverId) {
+        return INVOKER_SERVER_MAP.containsKey(serverId) &&
+                INVOKER_SERVER_MAP.get(serverId).getStatus().equals(InvokerStatusEnum.OFFLINE);
     }
 }

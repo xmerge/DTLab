@@ -24,7 +24,8 @@ public enum ServerErrorCode implements IErrorCode {
     SERVICE_UNAVAILABLE("B10008", "服务不可用"),
 
     SERVER_NOT_FOUND("B10009", "服务器未找到"),
-    SERVER_NOT_AVAILABLE("B10010", "服务当前不可用"),
+    SERVER_NOT_AVAILABLE("B10010", "服务当前不可用，请稍后重试"),
+    SERVER_OFFLINE("B10011", "服务器已离线，请联系管理员"),
     ;
 
     private final String code;

@@ -1,5 +1,7 @@
 package com.xmerge.DTLab.services.cloud.transitionService.config.dubbo;
 
+import com.xmerge.DTLab.services.cloud.transitionService.common.enums.InvokerStatusEnum;
+import com.xmerge.DTLab.services.cloud.transitionService.dto.InvokerServerWrapper;
 import com.xmerge.DTLab.services.cloud.transitionService.utils.DubboServiceUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.rpc.Invoker;
@@ -15,15 +17,24 @@ import org.springframework.stereotype.Component;
 public class ServiceInvokerListener implements InvokerListener {
     @Override
     public void referred(Invoker<?> invoker) throws RpcException {
-        log.info("服务引用，serverId: " + invoker.getUrl().getParameter("serverId", ""));
-        DubboServiceUtil.INVOKER_MAP.put(invoker.getUrl().getParameter("serverId", ""), invoker);
-        log.info("当前INVOKER_MAP: " + DubboServiceUtil.INVOKER_MAP.keySet());
+        String serverId = invoker.getUrl().getParameter("serverId", "");
+        log.info("服务引用，serverId: " + serverId);
+        InvokerServerWrapper invokerServerWrapper = InvokerServerWrapper.builder()
+                .invoker(invoker)
+                .serverId(serverId)
+                .status(InvokerStatusEnum.AVAILABLE)
+                .build();
+        DubboServiceUtil.INVOKER_SERVER_MAP.put(serverId, invokerServerWrapper);
+        log.info("当前INVOKER_MAP: " + DubboServiceUtil.INVOKER_SERVER_MAP.keySet());
     }
 
     @Override
     public void destroyed(Invoker<?> invoker) {
-        log.info("服务注销, serverId: " + invoker.getUrl().getParameter("serverId", ""));
-        DubboServiceUtil.INVOKER_MAP.remove(invoker.getUrl().getParameter("serverId", ""));
-        log.info("当前INVOKER_MAP: " + DubboServiceUtil.INVOKER_MAP.keySet());
+        String serverId = invoker.getUrl().getParameter("serverId", "");
+        log.info("服务注销, serverId: " + serverId);
+        InvokerServerWrapper invokerServerWrapper = DubboServiceUtil.INVOKER_SERVER_MAP.get(serverId);
+        invokerServerWrapper.setStatus(InvokerStatusEnum.OFFLINE);
+        DubboServiceUtil.INVOKER_SERVER_MAP.put(serverId, invokerServerWrapper);
+        log.info("当前INVOKER_MAP: " + DubboServiceUtil.INVOKER_SERVER_MAP.keySet());
     }
 }
