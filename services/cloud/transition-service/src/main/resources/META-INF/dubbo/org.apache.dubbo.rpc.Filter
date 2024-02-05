@@ -1,0 +1,1 @@
+serviceFilter=com.xmerge.DTLab.services.cloud.transitionService.config.dubbo.ServiceFilter

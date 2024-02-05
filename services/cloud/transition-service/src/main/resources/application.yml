@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: cloud-transition-service
+
+dubbo:
+  registry:
+    address: nacos://192.168.1.11:8848
+  application:
+    name: cloud-transition-service
+  consumer:
+    timeout: 30000
+  provider:
+    listener: my

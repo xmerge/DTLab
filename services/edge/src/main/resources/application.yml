@@ -1,0 +1,21 @@
+server:
+  port: 18090
+spring:
+  application:
+    name: EdgeServer
+dubbo:
+  registry:
+    address: nacos://192.168.1.11:8848
+  application:
+    name: dubbo-provider
+  protocol:
+    name: dubbo
+    port: 20880
+  scan:
+    base-packages: com.xmerge.edge.service
+  provider:
+    timeout: 30000
+    parameters:
+      serverId: ${my.serverId}
+my:
+  serverId: EdgeServer-02801001

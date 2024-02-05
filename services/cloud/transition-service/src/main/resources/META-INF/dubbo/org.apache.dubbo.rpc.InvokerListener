@@ -1,0 +1,1 @@
+serviceInvokerListener=com.xmerge.DTLab.services.cloud.transitionService.config.dubbo.ServiceInvokerListener
