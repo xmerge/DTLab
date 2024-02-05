@@ -8,6 +8,7 @@ import com.xmerge.framworks.convention.result.Result;
 import commonAPI.TestService;
 
 import org.apache.dubbo.rpc.Invoker;
+import org.apache.dubbo.rpc.RpcContext;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import com.xmerge.DTLab.services.cloud.transitionService.utils.DubboServiceUtil;
@@ -41,6 +42,7 @@ public class DataServiceImpl implements DataService {
     @Override
     public Result<String> getData(String serverId) {
         if (DubboServiceUtil.isServerAvailable(serverId)) {
+            RpcContext.getContext().setAttachment("serverId", serverId);
             return GlobalResult.success(testService.getInfo(serverId));
         }
         if (DubboServiceUtil.isServerOffline(serverId)) {
