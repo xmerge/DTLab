@@ -11,5 +11,15 @@ dubbo:
     name: cloud-transition-service
   consumer:
     timeout: 30000
+    router:
   provider:
     listener: my
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.1.11:8848
+      namespace: ""
+      group: DEFAULT_GROUP
+      application: seata-server
+  data-source-proxy-mode: AT

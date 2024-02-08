@@ -1,6 +1,6 @@
-package com.xmerge.edge.server2.service;
+package com.xmerge.edge.server2.service.impl.remote;
 
-import commonAPI.TestService;
+import com.xmerge.services.commonAPI.service.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Value;

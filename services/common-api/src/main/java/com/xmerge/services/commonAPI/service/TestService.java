@@ -1,4 +1,4 @@
-package commonAPI;
+package com.xmerge.services.commonAPI.service;
 
 /**
  * @author Xmerge

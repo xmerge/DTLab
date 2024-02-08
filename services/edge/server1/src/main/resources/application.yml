@@ -1,3 +1,5 @@
+my:
+  serverId: EdgeServer-02801001
 server:
   port: 18090
 spring:
@@ -17,5 +19,12 @@ dubbo:
     timeout: 30000
     parameters:
       serverId: ${my.serverId}
-my:
-  serverId: EdgeServer-02801001
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.1.11:8848
+      namespace: ""
+      group: DEFAULT_GROUP
+      application: seata-server
+  data-source-proxy-mode: AT
